@@ -1,0 +1,28 @@
+
+<html lang="en">
+  <head>
+  	<link rel='stylesheet' href='/stylesheets/style.css' />
+    <link rel="stylesheet" href="//netdna.bootstrapcdn.com/bootstrap/3.0.2/css/bootstrap.min.css"> <!-- load bootstrap css -->
+    <link rel="stylesheet" href="//netdna.bootstrapcdn.com/font-awesome/4.0.3/css/font-awesome.min.css"> <!-- load fontawesome -->
+    <script src='/javascripts/content_edit.js' type="text/javascript" />
+  </head>
+  <% include partials/page/header.ejs %>
+
+  <body>
+  <% include partials/page/jsdefaults.ejs %>
+  </body>
+</html>
+</body>
+<div id="content" >
+	<h1 id="title">Class.txt</h1>
+	<textarea class="form-control" rows="20" readonly><%= content %></textarea>
+	<div id="buttons">
+      <% if (editing) { %>
+        <button class="btn btn-info button save">Save</button>
+      <% } else { %>
+        <button class="btn btn-info button edit">Edit</button>
+      <% } %>
+      <button class="btn btn-info button download">Download</button>
+	</div>
+</div>
+</body>

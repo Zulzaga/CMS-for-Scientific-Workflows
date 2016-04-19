@@ -1,13 +1,21 @@
 var express = require('express');
+var session = require('express-session');
 var path = require('path');
 var favicon = require('serve-favicon');
 var logger = require('morgan');
 var cookieParser = require('cookie-parser');
+var passport = require('passport');
 var bodyParser = require('body-parser');
-
+var GitHubStrategy = require('passport-github').Strategy;
+var mongodb = require('mongodb');
 var routes = require('./routes/index');
+var login = require('./routes/login');
 var users = require('./routes/users');
-
+var MongoClient = mongodb.MongoClient;
+var url = 'mongodb://localhost:8000/data';
+var mongoose = require('mongoose');
+var User = require('./models/User.js');
+// var User = mongoose.model('User');
 var app = express();
 
 // view engine setup
@@ -19,18 +27,82 @@ app.set('view engine', 'ejs');
 app.use(logger('dev'));
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: false }));
-app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
+app.use(cookieParser());
+app.use(session({
+    secret: '2C44-4D44-WppQ38S',
+    resave: true,
+    saveUninitialized: true
+}));
+app.use(passport.initialize());
+app.use(passport.session());
 
 app.use('/', routes);
 app.use('/users', users);
-app.use('/projects', projects);
+app.use('/login', login);
+// used to serialize the user for the session
+passport.serializeUser(function(user, done) {
+    console.log("passport")
+    done(null, user);
+});
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {
   var err = new Error('Not Found');
   err.status = 404;
   next(err);
+});
+
+passport.use(new GitHubStrategy({
+    clientID: 'd4b1a86871d7237aad69',
+    clientSecret: '379eaaec03f32340975aa6ddc9637c3414208561',
+    callbackURL: "http://localhost:8080/auth/github/callback"
+  },
+  function(accessToken, refreshToken, profile, cb) {
+    console.log(accessToken)
+    var user = {
+      "githubId": profile.id,
+      "username": profile.username,
+      "access": accessToken,
+    }
+    return cb(null, user);
+  }
+));
+
+// used to deserialize the user
+passport.deserializeUser(function(user, done) {
+  done(null, user);
+    // User.findById(id, function(err, user) {
+    //     done(err, user);
+    // });
+});
+
+MongoClient.connect(url, function (err, db) {
+  if (err) {
+    console.log('Unable to connect to the mongoDB server. Error:', err);
+  } else {
+    //HURRAY!! We are connected. :)
+    console.log('Connection established to', url);
+
+    // Get the documents collection
+    var collection = db.collection('users');
+
+    //Create some users
+    var user1 = {name: 'modulus admin', age: 42, roles: ['admin', 'moderator', 'user']};
+    var user2 = {name: 'modulus user', age: 22, roles: ['user']};
+    var user3 = {name: 'modulus super admin', age: 92, roles: ['super-admin', 'admin', 'moderator', 'user']};
+
+    // Insert some users
+    collection.insert([user1, user2, user3], function (err, result) {
+      if (err) {
+        console.log(err);
+      } else {
+        console.log('Inserted %d documents into the "users" collection. The documents inserted with "_id" are:', result.length, result);
+      }
+      //Close connection
+      db.close();
+    });
+  }
 });
 
 // error handlers

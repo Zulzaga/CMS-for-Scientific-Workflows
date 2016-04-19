@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en">
+  <% include partials/page/header.ejs %>
+
+  <body>
+  <% include partials/page/jsdefaults.ejs %>
+  </body>
+</html>
+<head>
+  <title>Content Management</title>
+  <link rel='stylesheet' href='/stylesheets/style.css' />
+  <link rel="stylesheet" href="//netdna.bootstrapcdn.com/bootstrap/3.0.2/css/bootstrap.min.css"> <!-- load bootstrap css -->
+  <link rel="stylesheet" href="//netdna.bootstrapcdn.com/font-awesome/4.0.3/css/font-awesome.min.css"> <!-- load fontawesome -->
+</head>
+	<body>
+		<div id="title">
+			<h1>6.830 final project</h1>
+		</div>
+    <div id="project_content">
+	    <ul class = "list-group">
+	    	<% for(var i=0; i<project.length; i++) {%>
+			    <a class="list-group-item" href="/content/?path=<%= project[i].sha%>&parent=<%= project[i].parent%>&type=<%= project[i].type%>">
+            <% if (project[i].type == "blob") { %>
+              <span class="glyphicon glyphicon-file"></span>
+            <% } else { %>
+              <span class="glyphicon glyphicon-folder-open"></span>
+            <% } %>
+            
+            <%= project[i].path %>
+          </a>
+			  <% } %>
+		  </ul>
+	 </div>
+  </body>
+</html>

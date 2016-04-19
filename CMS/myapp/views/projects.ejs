@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="en">
+  <% include partials/page/header.ejs %>
+
+  <body>
+  <% include partials/page/jsdefaults.ejs %>
+  </body>
+</html>
+<head>
+    <title>Content Management</title>
+    <link rel='stylesheet' href='/stylesheets/style.css' />
+    <link rel="stylesheet" href="//netdna.bootstrapcdn.com/bootstrap/3.0.2/css/bootstrap.min.css"> <!-- load bootstrap css -->
+    <link rel="stylesheet" href="//netdna.bootstrapcdn.com/font-awesome/4.0.3/css/font-awesome.min.css"> <!-- load fontawesome -->
+</head>
+	<body>
+		<div id="title">
+			<h1>Projects</h1>
+		</div>
+    <div id="projects">
+	    <ul class = "list-group">
+	    	<% for (var i = 0; i < projects.length; i++) { %>
+			    <a class="list-group-item" href="/project/<%= projects[i].name %>">
+			   		<span class="glyphicon glyphicon-folder-open"></span>
+			   		<%= projects[i].name %>
+			   	</a>
+			  <% } %>
+		  </ul>
+	  </div>
+  </body>
+</html>
