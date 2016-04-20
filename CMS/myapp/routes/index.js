@@ -63,6 +63,7 @@ router.post('/save', function(req, res, next) {
 		console.log(projects);
 		// res.render('project', { 'project': projects });
 		// console.log(response);
+		console.log(req.user);
 		var fileUrl = "https://api.github.com/repos/" + req.user.username + "/" + req.body.parent + "/git/blobs/" + req.body.sha;
 		request({
 			url: fileUrl,
@@ -175,6 +176,7 @@ router.get('/auth/github',
 router.get('/auth/github/callback', 
   passport.authenticate('github', { failureRedirect: '/' }),
   function(req, res) {
+  	console.log("callback");
 	renderProjects(req, res); 
   });
 
