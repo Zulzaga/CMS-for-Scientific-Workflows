@@ -56,7 +56,8 @@ app.use(function(req, res, next) {
 passport.use(new GitHubStrategy({
     clientID: 'd4b1a86871d7237aad69',
     clientSecret: '379eaaec03f32340975aa6ddc9637c3414208561',
-    callbackURL: "http://localhost:8080/auth/github/callback"
+    callbackURL: "http://localhost:8080/auth/github/callback",
+    scope: ["repo", "user"],
   },
   function(accessToken, refreshToken, profile, cb) {
     console.log(accessToken)

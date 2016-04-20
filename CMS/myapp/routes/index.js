@@ -23,10 +23,47 @@ router.get('/projects', function(req, res, next) {
 });
 
 /* GET home page. */
-router.get('/content', function(req, res, next) {
-	var type = req.query.type;
-	if (type == "blob") {
-		var fileUrl = "https://api.github.com/repos/Zulzaga/" + req.query.parent + "/git/blobs/" + req.query.path;
+router.post('/save', function(req, res, next) {
+	// var request = JSON.parse(req.body);
+	// /repos/:owner/:repo/contents/:path
+	var fileUrl = "https://api.github.com/repos/" + req.user.username + "/" + req.body.parent + "/contents/" + req.body.title + "?content= &message= ";
+	console.log(fileUrl)
+	var string = {
+	    message: "Updating",
+	    content: new Buffer(req.body.data).toString('base64'),
+	    sha: req.body.sha,
+	};
+	console.log(req.user.access);
+	var options = {
+		method: "PUT",
+		form: JSON.stringify(string),
+		url: fileUrl,
+		headers: {
+			'User-Agent': 'Awesome-Octocat-App',
+			"Authorization": "token " + req.user.access,
+			'Content-Type': 'application/json',
+		}
+	}
+	// request({
+	// 	url: fileUrl,
+	// 	method: 'PUT',
+	// 	form: string,
+	// 	headers: {
+	// 		'User-Agent': 'Awesome-Octocat-App',
+	// 		"Authorization": "token " + req.user.access,
+	// 		'Content-Type': 'application/json',
+	// 		'Content-Length': JSON.stringify(string).length,
+	// 	}},
+	// 	function(error, response, body) {
+	// 		console.log(body);
+	// 	});
+	request(options, function(error, response, body) {
+		console.log(body);
+		var projects = JSON.parse(body);
+		console.log(projects);
+		// res.render('project', { 'project': projects });
+		// console.log(response);
+		var fileUrl = "https://api.github.com/repos/" + req.user.username + "/" + req.body.parent + "/git/blobs/" + req.body.sha;
 		request({
 			url: fileUrl,
 			method: 'GET',
@@ -37,7 +74,29 @@ router.get('/content', function(req, res, next) {
 			function(error, response, body) {
 				var projects = JSON.parse(body);
 				var encodedString = new Buffer(projects.content, 'base64').toString();
-				res.render('content', { content: encodedString, editing: false });
+				res.render('content', { content: encodedString, editing: false, project: projects.content.path, parent: req.body.parent, sha: projects.content.sha });
+			});
+
+	})
+});
+
+/* GET home page. */
+router.get('/content', function(req, res, next) {
+	var type = req.query.type;
+	var path = req.query.path;
+	if (type == "blob") {
+		var fileUrl = "https://api.github.com/repos/" + req.user.username + "/" + req.query.parent + "/git/blobs/" + req.query.sha;
+		request({
+			url: fileUrl,
+			method: 'GET',
+			headers: {
+				'User-Agent': 'Awesome-Octocat-App',
+				"Authorization": "token " + req.user.access,
+			}},
+			function(error, response, body) {
+				var projects = JSON.parse(body);
+				var encodedString = new Buffer(projects.content, 'base64').toString();
+				res.render('content', { content: encodedString, editing: false, project: path, parent: req.query.parent, sha: req.query.sha });
 			});
 	} else {
 		// var fileUrl = "https://api.github.com/repos/Zulzaga/" + req.query.parent + "/git/blobs/" + req.query.path;

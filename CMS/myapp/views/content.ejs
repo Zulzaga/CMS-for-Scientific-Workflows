@@ -4,7 +4,6 @@
   	<link rel='stylesheet' href='/stylesheets/style.css' />
     <link rel="stylesheet" href="//netdna.bootstrapcdn.com/bootstrap/3.0.2/css/bootstrap.min.css"> <!-- load bootstrap css -->
     <link rel="stylesheet" href="//netdna.bootstrapcdn.com/font-awesome/4.0.3/css/font-awesome.min.css"> <!-- load fontawesome -->
-    <script src='/javascripts/content_edit.js' type="text/javascript" />
   </head>
   <% include partials/page/header.ejs %>
 
@@ -12,17 +11,57 @@
   <% include partials/page/jsdefaults.ejs %>
   </body>
 </html>
-</body>
-<div id="content" >
-	<h1 id="title">Class.txt</h1>
-	<textarea class="form-control" rows="20" readonly><%= content %></textarea>
-	<div id="buttons">
-      <% if (editing) { %>
-        <button class="btn btn-info button save">Save</button>
-      <% } else { %>
-        <button class="btn btn-info button edit">Edit</button>
-      <% } %>
-      <button class="btn btn-info button download">Download</button>
-	</div>
-</div>
+<body>
+  <div id="content" >
+  	<h1 id="title"><%= project %></h1>
+    <h1 id="parent"><%= parent %></h1>
+    <h1 id="sha"><%= sha %></h1>
+  	<textarea class="form-control" rows="20" disabled="true" id="content_holder"><%= content %></textarea>
+  	
+    <div id="buttons">
+      <div id="save_edit">
+        <button class="btn btn-info save" id="save">Save</button>
+        <button class="btn btn-info edit" id="edit">Edit</button>
+      </div>
+      <a class="btn btn-info download">Download</a>
+    </div>
+  </div>
+  <script>
+    var edit = document.getElementById("edit");
+    var save = document.getElementById("save");
+
+    edit.onclick = function() {
+      edit.style.display = "none";
+      save.style.display = "inline-block";
+      // content.style.disabled = "false";
+      $('#content_holder').removeAttr("disabled");
+    };
+
+    save.onclick = function() {
+      edit.style.display = "inline-block";
+      save.style.display = "none";
+      $('#content_holder').attr("disabled", true);
+      var dataToSend = {
+        'data': $('#content_holder').val(),
+        "parent": $("#parent").text(),
+        "title": $("#title").text(),
+        "sha": $("#sha").text(),
+      }
+      console.log("data" + $("#parent").text() + " " + $("#title").text())
+      $.ajax({
+        type: 'POST',
+        data: JSON.stringify(dataToSend),
+        contentType: 'application/json',
+        url: 'http://localhost:8080/save',   
+        dataType: "json",         
+        success: function(data) {
+          console.log('success');
+          console.log(JSON.stringify(dat));
+        },
+        error: function(e) {
+          console.log(e);
+        }
+      });
+    };
+  </script>
 </body>

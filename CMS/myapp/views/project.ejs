@@ -19,7 +19,7 @@
     <div id="project_content">
 	    <ul class = "list-group">
 	    	<% for(var i=0; i<project.length; i++) {%>
-			    <a class="list-group-item" href="/content/?path=<%= project[i].sha%>&parent=<%= project[i].parent%>&type=<%= project[i].type%>">
+			    <a class="list-group-item" href="/content/?sha=<%= project[i].sha%>&parent=<%= project[i].parent%>&type=<%= project[i].type%>&path=<%= project[i].path%>">
             <% if (project[i].type == "blob") { %>
               <span class="glyphicon glyphicon-file"></span>
             <% } else { %>

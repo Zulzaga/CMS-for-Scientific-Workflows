@@ -48,8 +48,13 @@ textarea
 	padding-top: 20px;
 }
 
-.save {
-	visibility: hidden;
+#save_edit {
+	display: inline-block;
+	width: 30%;
+}
+
+#save {
+	display: none
 }
 
 .edit {
@@ -65,9 +70,14 @@ textarea
 	padding-top: 20px;
 	display: inline-block;
 	padding-left: 20px;
+	float: right;
 }
 
 .container {
 	position: relative;
 	top: 20%;
+}
+
+#parent, #sha {
+	display: none
 }
