@@ -14,22 +14,32 @@
 </head>
 	<body>
 		<div id="title">
-			<h1>6.830 final project</h1>
+			<h1 id="main_title"><%= title %></h1>
+      <button class="btn btn-info add_file" id="add_file">Add a File</button>
+      <button class="btn btn-info add_file" id="delete_project">Delete Project</button>
 		</div>
     <div id="project_content">
 	    <ul class = "list-group">
 	    	<% for(var i=0; i<project.length; i++) {%>
-			    <a class="list-group-item" href="/content/?sha=<%= project[i].sha%>&parent=<%= project[i].parent%>&type=<%= project[i].type%>&path=<%= project[i].path%>">
-            <% if (project[i].type == "blob") { %>
+			    <a class="list-group-item" href="/content/?sha=<%= project[i].sha%>&name=<%= project[i].name%>&type=<%= project[i].type%>&path=<%= project[i].path%>">
+            <% if (project[i].type == "blob" || project[i].type == "file") { %>
               <span class="glyphicon glyphicon-file"></span>
             <% } else { %>
               <span class="glyphicon glyphicon-folder-open"></span>
             <% } %>
             
-            <%= project[i].path %>
+            <%= project[i].name %>
           </a>
 			  <% } %>
 		  </ul>
 	 </div>
   </body>
+
+  <script>
+    var add_file = document.getElementById("add_file");
+
+    add_file.onclick = function() {
+      $('input[type=file]').trigger('click');
+    };
+  </script>
 </html>

@@ -5,7 +5,9 @@ var favicon = require('serve-favicon');
 var logger = require('morgan');
 var cookieParser = require('cookie-parser');
 var passport = require('passport');
+var multipart = require('multipart');
 var bodyParser = require('body-parser');
+var methodOverride = require('method-override');
 var GitHubStrategy = require('passport-github').Strategy;
 var mongodb = require('mongodb');
 var routes = require('./routes/index');
@@ -15,9 +17,11 @@ var MongoClient = mongodb.MongoClient;
 var url = 'mongodb://localhost:8000/data';
 var mongoose = require('mongoose');
 var User = require('./models/User.js');
+var multer = require('multer');
+var PouchDB = require('pouchdb');
 // var User = mongoose.model('User');
 var app = express();
-
+var busboy = require('connect-busboy');
 // view engine setup
 app.set('views', path.join(__dirname, 'views'));
 app.set('view engine', 'ejs');
@@ -25,8 +29,8 @@ app.set('view engine', 'ejs');
 // uncomment after placing your favicon in /public
 //app.use(favicon(path.join(__dirname, 'public', 'favicon.ico')));
 app.use(logger('dev'));
+app.use(bodyParser.urlencoded({ extended: true }));
 app.use(bodyParser.json());
-app.use(bodyParser.urlencoded({ extended: false }));
 app.use(express.static(path.join(__dirname, 'public')));
 app.use(cookieParser());
 app.use(session({
@@ -34,12 +38,16 @@ app.use(session({
     resave: true,
     saveUninitialized: true
 }));
+var multer = require('multer');
+var upload = multer({ dest: './uploads' });
+app.use(multer({dest:'./uploads/'}).array('multiInputFileName'));
 app.use(passport.initialize());
 app.use(passport.session());
 
 app.use('/', routes);
 app.use('/users', users);
 app.use('/login', login);
+app.use(busboy());
 // used to serialize the user for the session
 passport.serializeUser(function(user, done) {
     console.log("passport")
@@ -105,6 +113,14 @@ MongoClient.connect(url, function (err, db) {
     });
   }
 });
+
+function sync() {
+  var remoteCouch = "https://api.github.com/repos/Zulzaga/CMS_numpy/";
+  syncDom.setAttribute('data-sync-state', 'syncing');
+  var opts = {live: true};
+  db.replicate.to(remoteCouch, opts, syncError);
+  db.replicate.from(remoteCouch, opts, syncError);
+}
 
 // error handlers
 

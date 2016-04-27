@@ -17,13 +17,12 @@
     <h1 id="parent"><%= parent %></h1>
     <h1 id="sha"><%= sha %></h1>
   	<textarea class="form-control" rows="20" disabled="true" id="content_holder"><%= content %></textarea>
-  	
     <div id="buttons">
       <div id="save_edit">
         <button class="btn btn-info save" id="save">Save</button>
         <button class="btn btn-info edit" id="edit">Edit</button>
       </div>
-      <a class="btn btn-info download">Download</a>
+      <a class="btn btn-info delete">Delete</a>
     </div>
   </div>
   <script>
@@ -52,7 +51,7 @@
         type: 'POST',
         data: JSON.stringify(dataToSend),
         contentType: 'application/json',
-        url: 'http://localhost:8080/save',   
+        url: '/save',   
         dataType: "json",         
         success: function(data) {
           console.log('success');

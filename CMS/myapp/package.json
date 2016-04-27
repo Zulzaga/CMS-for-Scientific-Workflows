@@ -17,9 +17,12 @@
     "mongodb": "^2.1.14",
     "mongoose": "^4.4.11",
     "morgan": "~1.6.1",
+    "multer": "^1.1.0",
     "node-rest-client": "^1.8.0",
     "passport": "^0.3.2",
     "passport-github": "^1.1.0",
+    "pouchdb": "^5.3.2",
+    "rdflib": "^0.6.1",
     "request": "^2.70.0",
     "serve-favicon": "~2.3.0"
   },

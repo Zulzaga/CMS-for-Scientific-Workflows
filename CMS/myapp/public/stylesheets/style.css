@@ -20,7 +20,9 @@ a {
 }
 
 #title {
+	margin:auto;
 	text-align: center;
+	width: 60%;
 }
 
 textarea
@@ -66,7 +68,17 @@ textarea
 	width: 100%;
 }
 
-.download {
+#main_title  {
+	display: inline-block;
+}
+
+.create, .add_file, .delete_project {
+	display: inline-block;
+	float: right;
+	margin-top: 25px;
+}
+
+.delete {
 	padding-top: 20px;
 	display: inline-block;
 	padding-left: 20px;
@@ -79,5 +91,23 @@ textarea
 }
 
 #parent, #sha {
-	display: none
+	display: none;
 }
+
+#content_holder {
+	margin-top: 20px
+}
+
+#file_upload {
+	display: none;
+}
+
+#add_project {
+	margin-top: 100;
+	padding-left:30;
+}
+
+#project_upload, #project_name {
+	display: inline-block;
+}
+

@@ -14,17 +14,36 @@
 </head>
 	<body>
 		<div id="title">
-			<h1>Projects</h1>
+			<h1 id="main_title">Projects</h1>
+			<button class="btn btn-info create" id="create">Create a Project</button>
 		</div>
     <div id="projects">
 	    <ul class = "list-group">
-	    	<% for (var i = 0; i < projects.length; i++) { %>
-			    <a class="list-group-item" href="/project/<%= projects[i].name %>">
-			   		<span class="glyphicon glyphicon-folder-open"></span>
-			   		<%= projects[i].name %>
-			   	</a>
-			  <% } %>
+        <% for(var i=0; i<projects.length; i++) {%>
+          <a class="list-group-item" href="/content/?sha=<%= projects[i].sha%>&parent=<%= projects[i].parent%>&type=<%= projects[i].type%>&path=<%= projects[i].path%>">
+            <% if (projects[i].type == "blob") { %>
+              <span class="glyphicon glyphicon-file"></span>
+            <% } else { %>
+              <span class="glyphicon glyphicon-folder-open"></span>
+            <% } %>
+            
+            <%= projects[i].path %>
+          </a>
+        <% } %>
 		  </ul>
 	  </div>
   </body>
+
+  <script>
+    var add_project = document.getElementById("create");
+    add_project.onclick = function() {
+	    var width = 400;
+	    var height = 300;
+        var left = (screen.width/2)-(width/2);
+	    var top = (screen.height/2)-(height/2);
+    	console.log(screen.height);
+    	console.log(top);
+      window.open('/popup_project', 'add new project', 'toolbar=no, location=no, directories=no, status=no, menubar=no, scrollbars=no, resizable=no, copyhistory=no, width='+width+', height='+height+', top='+top+', left='+left);
+    };
+  </script>
 </html>
