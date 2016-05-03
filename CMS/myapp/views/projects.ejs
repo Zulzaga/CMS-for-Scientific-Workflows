@@ -13,37 +13,49 @@
     <link rel="stylesheet" href="//netdna.bootstrapcdn.com/font-awesome/4.0.3/css/font-awesome.min.css"> <!-- load fontawesome -->
 </head>
 	<body>
-		<div id="title">
-			<h1 id="main_title">Projects</h1>
-			<button class="btn btn-info create" id="create">Create a Project</button>
+    <a class="btn btn-info create" id="create" href="/create_project">Create a new project</a>
+    <a class="btn btn-info" id="add_new_project" href="/add_new_project">Add a new project</a>
+    <a class="btn btn-info" id="sync" href="/sync">Sync</a>
+		<div id="project_title">
+			<h1>Projects</h1>
+      <% if (own_projects.length == 0) { %>
+            You don't have any forked projects! 
+       <% } %>
 		</div>
     <div id="projects">
-	    <ul class = "list-group">
-        <% for(var i=0; i<projects.length; i++) {%>
-          <a class="list-group-item" href="/content/?sha=<%= projects[i].sha%>&parent=<%= projects[i].parent%>&type=<%= projects[i].type%>&path=<%= projects[i].path%>">
-            <% if (projects[i].type == "blob") { %>
-              <span class="glyphicon glyphicon-file"></span>
-            <% } else { %>
-              <span class="glyphicon glyphicon-folder-open"></span>
+  	    <ul class = "list-group">
+          <% for(var i=0; i<own_projects.length; i++) { %>
+            <% if (own_projects[i].fork == false) { %>
+              <a class="list-group-item" href="/project/<%= own_projects[i].name %>">
+                <span class="glyphicon glyphicon-folder-open"></span>
+                <%= own_projects[i].name %>
+              </a>
             <% } %>
-            
-            <%= projects[i].path %>
-          </a>
-        <% } %>
-		  </ul>
+          <% } %>
+  		  </ul>
 	  </div>
+    <div id="project_title_1">
+      <h1>Forked Projects</h1>
+       <% if (forked_projects.length == 0) { %>
+            You don't have any forked projects! 
+       <% } %>
+    </div>
+      <div id="forked_projects">
+        <ul class = "list-group">
+          <% for(var i=0; i<forked_projects.length; i++) {%>
+            <% if (forked_projects[i].fork) { %>
+              <a class="list-group-item" href="/project/<%= forked_projects[i].name %>">
+                <% if (forked_projects[i].type == "blob") { %>
+                  <span class="glyphicon glyphicon-file"></span>
+                <% } else { %>
+                  <span class="glyphicon glyphicon-folder-open"></span>
+                <% } %>
+                <%= forked_projects[i].name %>
+              </a>
+            <% } %>
+          <% } %>
+        </ul>
+      </div>
+    </div>
   </body>
-
-  <script>
-    var add_project = document.getElementById("create");
-    add_project.onclick = function() {
-	    var width = 400;
-	    var height = 300;
-        var left = (screen.width/2)-(width/2);
-	    var top = (screen.height/2)-(height/2);
-    	console.log(screen.height);
-    	console.log(top);
-      window.open('/popup_project', 'add new project', 'toolbar=no, location=no, directories=no, status=no, menubar=no, scrollbars=no, resizable=no, copyhistory=no, width='+width+', height='+height+', top='+top+', left='+left);
-    };
-  </script>
 </html>
