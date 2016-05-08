@@ -1,0 +1,154 @@
+@import url("https://maxcdn.bootstrapcdn.com/font-awesome/4.2.0/css/font-awesome.min.css");
+
+body {
+/*  padding: 50px;*/
+  font: 14px "Lucida Grande", Helvetica, Arial, sans-serif;
+}
+
+a {
+  color: #00B7FF;
+}
+
+.space {
+	padding-left: 50px;
+}
+
+#projects, #project_content, #forked_projects {
+	padding-top: 20px;
+	padding-left: 100px;
+	padding-right: 100px;
+}
+
+#title {
+	margin:auto;
+	text-align: center;
+	width: 60%;
+}
+
+textarea
+{
+  border:1px solid #999999;
+  width: 80%;
+  height: 100%;
+  display: block;
+    margin-left: auto;
+    resize: none;
+    margin-right: auto;
+    height: auto;
+}
+
+#content {
+	padding-left: 100px;
+	padding-right: 100px;
+	height: 100%;
+}
+
+#project_content{
+	margin-top: 20px;
+}
+
+#buttons {
+	margin:auto;
+	width: 20%;
+	padding-top: 20px;
+}
+
+#save_edit {
+	display: inline-block;
+	float: right;
+	margin-right: 10px;
+}
+
+#save, #file_upload {
+	display: none
+}
+
+.edit {
+	padding-top: 20px;
+	display: inline-block;
+}
+
+.search {
+	width: 100%;
+}
+
+#main_title  {
+	display: inline-block;
+}
+
+#project_title, #project_title_1 {
+	display: inline-block;
+	margin-left: 100px;
+}
+
+#create_title {
+	display: inline-block;
+	text-align: center;
+	width: 100%;
+	margin-bottom: 30px;
+}
+
+.create, #delete_file {
+	display: inline-block;
+	float: right;
+	margin-top: 25px;
+	margin-right: 100px
+}
+#sync, #add_new_project {
+	display: inline-block;
+	float: right;
+	margin-top: 25px;
+	margin-right: 20px	
+}
+.add_file {
+	display: inline-block;
+	float: right;
+	margin-top: 25px;
+	margin-right: 10px;
+}
+
+.delete {
+	padding-top: 20px;
+	display: inline-block;
+	float: right;
+	margin-right: 100px;
+}
+
+.container {
+	position: relative;
+	top: 20%;
+}
+
+#path, #repo, #sha {
+	display: none;
+}
+
+#content_holder {
+	margin-top: 20px
+}
+
+#add_project {
+	margin: auto;
+	text-align: center;
+}
+
+#project_name {
+	width: 30%;
+}
+
+#file_upload, #identifier, .actual_title , #repo_name, .repo_name {
+	display: none;
+}
+
+#add_project {
+	margin-top: 100;
+	padding-left:30;
+}
+
+#project_upload, #project_name {
+	display: inline-block;
+}
+
+#content_holder {
+	height: 500px;
+}

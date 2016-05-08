@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="en">
+  <% include partials/page/header.ejs %>
+
+  <body>
+  <% include partials/page/jsdefaults.ejs %>
+  </body>
+</html>
+<head>
+  <title>Content Management</title>
+  <link rel='stylesheet' href='/stylesheets/style.css' />
+  <link rel="stylesheet" href="//netdna.bootstrapcdn.com/bootstrap/3.0.2/css/bootstrap.min.css"> <!-- load bootstrap css -->
+  <link rel="stylesheet" href="//netdna.bootstrapcdn.com/font-awesome/4.0.3/css/font-awesome.min.css"> <!-- load fontawesome -->
+  <script src="//ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
+</head>
+	<body>
+    <form id="delete_repo" method="post" action="/delete_repo">
+        <input type="text" name="actual_title" class="actual_title" value="<%= title %>">
+        <button class="btn btn-info" id="delete_file">Delete</button>
+    </form>
+    <form id="delete_" method="post" action="/delete">
+        <input id="repo_name" name="name" value="<%= project %>">
+        <input id="repo_name" name="path" value="<%= path %>">
+        <input id="repo_name" name="repo" value="<%= repo %>">
+        <input id="repo_name" name="sha" value="<%= sha %>">
+        <input type="text" name="actual_title" class="actual_title" value="<%= title %>">
+    </form>
+<!--     <form id="add_new" method="post" action="/add_new">
+      <input type="file" name="multiInputFileName" id="file_upload" size="chars">
+      <button class="btn btn-info add_file" id="add_file">Add new file</button>
+    </form> -->
+    <a class="btn btn-info add_file" id="add_file" href="/add_file?repo=<%= repo %>&path=<%= title %>">Add new file</a>
+
+		<div id="project_title">
+			  <h1 id="actual_title"><%= title %></h1>
+		</div>
+    <div id="identifier"><%= isrepo %></div>
+    <div id="project_content">
+	    <ul class = "list-group">
+        <% if (project.length == 0) { %>
+          You don't have any files inside.
+        <% } %>
+	    	<% for(var i=0; i<project.length; i++) {%>
+			    <a class="list-group-item" href="/content/?name=<%= project[i].name %>&url=<%= project[i].url%>&path=<%= project[i].path%>&repo=<%= repo%>" id="project_click">
+            <% if (project[i].type == "blob" || project[i].type == "file") { %>
+              <span class="glyphicon glyphicon-file"></span>
+            <% } else { %>
+              <span class="glyphicon glyphicon-folder-open"></span>
+            <% } %>
+            <%= project[i].name %>
+          </a>
+			  <% } %>
+		  </ul>
+	 </div>
+  </body>
+
+  <script>
+    var add_file = document.getElementById("add_file");
+    var delete_file = document.getElementById("delete_file");
+    var file_name = $("#project_title").text();
+    var isrepo = $("#identifier").text() == "true"
+
+    delete_file.onclick = function() {
+      if (confirm("Are you sure you want to delete?")) {
+        console.log(isrepo);
+          if (isrepo) {
+            $("#delete_repo").submit();
+          } else {
+            // must delete a file/ not a repo!
+            $("#delete_").submit();
+          }
+      } else {
+        return false;
+      }
+    };
+  </script>
+</html>

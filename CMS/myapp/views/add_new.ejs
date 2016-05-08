@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="en">
+  <% include partials/page/header.ejs %>
+
+  <body>
+  <% include partials/page/jsdefaults.ejs %>
+  </body>
+</html>
+<head>
+  <link rel="stylesheet" href="/stylesheets/style.css" />
+  <link rel="stylesheet" href="//netdna.bootstrapcdn.com/bootstrap/3.0.2/css/bootstrap.min.css" /> <!-- load bootstrap css -->
+  <link rel="stylesheet" href="//netdna.bootstrapcdn.com/font-awesome/4.0.3/css/font-awesome.min.css" /> <!-- load fontawesome -->
+  <script src="//ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
+</head>
+<body>
+  <div id="create_title"><h1>Add a new project</h1>
+  <div id="new_project_desc">
+    Paste the url of the project you want to add
+  </div>
+  </div>
+  <div id="add_project">
+    <form method="POST" action="/add_new_project" enctype="multipart/form-data">    
+        Name:
+        <input type="text" name="file_name" id="project_name" size="chars">
+        <input type="submit" id="project_submit" value="Submit" class="btn btn-info">
+    </form>
+  </div>
+  <script>
+  </script>
+</body>

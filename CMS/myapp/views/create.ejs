@@ -1,0 +1,61 @@
+
+<html lang="en">
+  <head>
+  	<link rel='stylesheet' href='/stylesheets/style.css' />
+    <link rel="stylesheet" href="//netdna.bootstrapcdn.com/bootstrap/3.0.2/css/bootstrap.min.css"> <!-- load bootstrap css -->
+    <link rel="stylesheet" href="//netdna.bootstrapcdn.com/font-awesome/4.0.3/css/font-awesome.min.css"> <!-- load fontawesome -->
+  </head>
+  <% include partials/page/header.ejs %>
+
+  <body>
+  <% include partials/page/jsdefaults.ejs %>
+  </body>
+</html>
+<body>
+  <div id="content" >
+    <button class="btn btn-info new" id="new">Create a New Project</button>
+    <input id="import" type="file"><a class="btn btn-info import">Import a Project</a></import>
+  </div>
+    <script>
+      function popUp() {
+        popup = window.open()
+      }
+    </script>
+  //   var edit = document.getElementById("edit");
+  //   var save = document.getElementById("save");
+
+  //   edit.onclick = function() {
+  //     edit.style.display = "none";
+  //     save.style.display = "inline-block";
+  //     // content.style.disabled = "false";
+  //     $('#content_holder').removeAttr("disabled");
+  //   };
+
+  //   save.onclick = function() {
+  //     edit.style.display = "inline-block";
+  //     save.style.display = "none";
+  //     $('#content_holder').attr("disabled", true);
+  //     var dataToSend = {
+  //       'data': $('#content_holder').val(),
+  //       "parent": $("#parent").text(),
+  //       "title": $("#title").text(),
+  //       "sha": $("#sha").text(),
+  //     }
+  //     console.log("data" + $("#parent").text() + " " + $("#title").text())
+  //     $.ajax({
+  //       type: 'POST',
+  //       data: JSON.stringify(dataToSend),
+  //       contentType: 'application/json',
+  //       url: '/save',   
+  //       dataType: "json",         
+  //       success: function(data) {
+  //         console.log('success');
+  //         console.log(JSON.stringify(dat));
+  //       },
+  //       error: function(e) {
+  //         console.log(e);
+  //       }
+  //     });
+  //   };
+  // </script>
+</body>
