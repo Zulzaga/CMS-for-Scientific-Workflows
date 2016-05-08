@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en">
+  <% include partials/page/header.ejs %>
+
+  <body>
+  <% include partials/page/jsdefaults.ejs %>
+  </body>
+</html>
+<head>
+    <title>Content Management</title>
+    <link rel='stylesheet' href='/stylesheets/style.css' />
+    <link rel="stylesheet" href="//netdna.bootstrapcdn.com/bootstrap/3.0.2/css/bootstrap.min.css"> <!-- load bootstrap css -->
+    <link rel="stylesheet" href="//netdna.bootstrapcdn.com/font-awesome/4.0.3/css/font-awesome.min.css"> <!-- load fontawesome -->
+</head>
+	<body>
+		<div id="title">
+      <% if (count == 0) { %>
+        <h1 id="main_title">Found no result for <%= search %></h1>
+      <% } else { %>
+        <h1 id="main_title">Found <%= count %> results for <%= search %></h1>
+      <% } %>
+		</div>
+    <div id="projects">
+	    <ul class = "list-group">
+        <% for(var i=0; i<results.length; i++) {%>
+          <a class="list-group-item" href="/content/?sha=<%= results[i].sha%>&repo=<%= results[i].repo%>&type=<%= results[i].type%>&path=<%= results[i].path%>&url=<%=results[i].git_url %>">            
+            <%= results[i].repo %>/<%= results[i].path %>
+          </a>
+        <% } %>
+		  </ul>
+	  </div>
+  </body>
+</html>

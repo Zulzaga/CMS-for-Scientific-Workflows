@@ -1,0 +1,81 @@
+
+<html lang="en">
+  <head>
+  	<link rel='stylesheet' href='/stylesheets/style.css' />
+    <link rel="stylesheet" href="//netdna.bootstrapcdn.com/bootstrap/3.0.2/css/bootstrap.min.css"> <!-- load bootstrap css -->
+    <link rel="stylesheet" href="//netdna.bootstrapcdn.com/font-awesome/4.0.3/css/font-awesome.min.css"> <!-- load fontawesome -->
+  </head>
+  <% include partials/page/header.ejs %>
+
+  <body>
+  <% include partials/page/jsdefaults.ejs %>
+  </body>
+</html>
+<body>
+  <form id="delete" method="POST" action="/delete">
+    <a class="btn btn-info delete" id="delete_button">Delete</a>
+    <input id="repo_name" name="name" value="<%= project %>">
+    <input id="repo_name" name="path" value="<%= path %>">
+    <input id="repo_name" name="repo" value="<%= repo %>">
+    <input id="repo_name" name="sha" value="<%= sha %>">
+  </form>
+  <div id="save_edit">
+    <button class="btn btn-info save" id="save">Save</button>
+    <button class="btn btn-info edit" id="edit">Edit</button>
+  </div>
+  <div id="content">
+  <div id="save_form">
+    <h1 name="name" id="project_tit"><%= project %></h1>
+    <h1 id="path" class="repo_name" name="path"><%= path %></h1>
+    <h1 id="repo" class="repo_name" name="repo"><%= repo %></h1>
+    <h1 id="sha" class="repo_name" name="sha"><%= sha %></h1>
+    <textarea class="form-control" rows="20" disabled="true" id="content_holder" name="content_update"><%= content %></textarea>
+  </div>
+  </div>
+
+  <script>
+    var edit = document.getElementById("edit");
+    var save = document.getElementById("save");
+    var delete_button = document.getElementById("delete_button");
+
+    edit.onclick = function() {
+      edit.style.display = "none";
+      save.style.display = "inline-block";
+      $('#content_holder').removeAttr("disabled");
+    };
+
+    save.onclick = function() {
+      edit.style.display = "inline-block";
+      save.style.display = "none";
+      $('#content_holder').attr("disabled", true);
+      var dataToSend = {
+        'data': $('#content_holder').val(),
+        "parent": $("#parent").text(),
+        "title": $("#project_tit").text(),
+        "sha": $("#sha").text(),
+        "repo": $("#repo").text(),
+        "path": $("#path").text(),
+      }
+      console.log("data" + $("#parent").text() + " " + $("#title").text())
+      $.ajax({
+        type: 'POST',
+        data: JSON.stringify(dataToSend),
+        contentType: 'application/json',
+        url: '/save',   
+        dataType: "json",         
+        success: function(data) {
+        },
+        error: function(e) {
+        }
+      });
+    };
+
+    delete_button.onclick = function() {
+      if (confirm('Do you want to submit?')) {
+        $("#delete").submit();
+       } else {
+           return false;
+       }
+    };
+  </script>
+</body>
