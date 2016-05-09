@@ -1,0 +1,6 @@
+{
+  "name": "Nipype cms",
+  "tagline": "",
+  "body": "<html lang=\"en\">\r\n  <body>\r\n  </body>\r\n</html>\r\n<head>\r\n  <title>Content Management</title>\r\n  <link rel=\"stylesheet\" href=\"/stylesheets/style.css\" />\r\n  <link rel=\"stylesheet\" href=\"//netdna.bootstrapcdn.com/bootstrap/3.0.2/css/bootstrap.min.css\" />\r\n  <link rel=\"stylesheet\" href=\"//netdna.bootstrapcdn.com/font-awesome/4.0.3/css/font-awesome.min.css\" />\r\n  <script src=\"//cdn.jsdelivr.net/pouchdb/5.3.2/pouchdb.min.js\"></script>\r\n</head>\r\n<body>\r\n  <div class=\"container\">\r\n    <div class=\"jumbotron text-center\">\r\n      <h2>Content Management System for Scientific Workflows</h2>\r\n\r\n      <p>Login or Register with:</p>\r\n\r\n      <a href=\"/auth/github\" class=\"btn btn-default\"><span class=\"fa fa-user\"></span>Github Login</a>\r\n    </div>\r\n  </div>\r\n</body>",
+  "note": "Don't delete this file! It's used internally to help with page regeneration."
+}
